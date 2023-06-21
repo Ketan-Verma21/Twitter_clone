@@ -86,28 +86,33 @@ class TweetActivity : AppCompatActivity() {
                 Toast.makeText(this,"Failed to post the tweet",Toast.LENGTH_SHORT).show()
             }
     }
-    fun getHashtags(source:String):ArrayList<String>{
+    fun getHashtags(source: String): ArrayList<String> {
         val hashtags = arrayListOf<String>()
-        var text =source
-        while (text.contains("#")){
+        var text = source
+
+        while (text.contains("#")) {
             var hashtag = ""
             val hash = text.indexOf("#")
-            text=text.substring(hash+1)
-            val firstspace = text.indexOf(" ")
+            text = text.substring(hash + 1)
+
+            val firstSpace = text.indexOf(" ")
             val firstHash = text.indexOf("#")
-            if(firstspace==-1 && firstHash==-1){
-                hashtag=text.substring(0)
-            }else if(firstspace!=-1 && firstspace<firstHash){
-                hashtag=text.substring(firstspace+1)
-            }
-            else{
-                hashtag=text.substring(0,firstHash)
+
+            if(firstSpace == -1 && firstHash == -1) {
+                hashtag = text.substring(0)
+            } else if (firstSpace != -1 && firstSpace < firstHash) {
+                hashtag = text.substring(0, firstSpace)
+                text = text.substring(firstSpace + 1)
+            } else {
+                hashtag = text.substring(0, firstHash)
                 text = text.substring(firstHash)
             }
-            if(!hashtag.isNullOrEmpty()){
+
+            if(!hashtag.isNullOrEmpty()) {
                 hashtags.add(hashtag)
             }
         }
+
         return hashtags
     }
     companion object{
